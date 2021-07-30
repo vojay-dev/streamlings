@@ -1,0 +1,134 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/fonts/Dimbo Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://DebugOverlay.gd" type="Script" id=2]
+[ext_resource path="res://assets/ui/book.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.054902, 0.054902, 0.054902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.298039, 0.298039, 0.298039, 1 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 6
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = SubResource( 3 )
+Button/styles/normal = SubResource( 4 )
+Button/styles/pressed = SubResource( 5 )
+
+[node name="DebugOverlay" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 354.92
+margin_top = 124.487
+margin_right = 428.92
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 67.0
+margin_bottom = 105.0
+custom_constants/vseparation = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PanelContainer/GridContainer"]
+margin_right = 60.0
+margin_bottom = 8.0
+text = "DEBUG MENU"
+align = 1
+
+[node name="SpawnButton" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 10.0
+margin_right = 60.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 60, 0 )
+text = "spawn streamling"
+
+[node name="WalkButton" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 20.0
+margin_right = 60.0
+margin_bottom = 28.0
+text = "walk"
+
+[node name="BlockButton" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 30.0
+margin_right = 60.0
+margin_bottom = 38.0
+text = "block"
+
+[node name="DigButton" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 40.0
+margin_right = 60.0
+margin_bottom = 48.0
+text = "dig"
+
+[node name="UmbrellaButton" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 50.0
+margin_right = 60.0
+margin_bottom = 58.0
+text = "activate umbrella"
+
+[node name="KillButton" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 60.0
+margin_right = 60.0
+margin_bottom = 68.0
+text = "kill"
+
+[node name="OutButton" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 70.0
+margin_right = 60.0
+margin_bottom = 78.0
+text = "out"
+
+[node name="ToggleState" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 80.0
+margin_right = 60.0
+margin_bottom = 88.0
+text = "toggle state labels"
+
+[node name="Close" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 90.0
+margin_right = 60.0
+margin_bottom = 98.0
+text = "close"
+
+[node name="Icon" type="Sprite" parent="."]
+position = Vector2( 372.415, 133.277 )
+texture = ExtResource( 3 )
+
+[connection signal="pressed" from="PanelContainer/GridContainer/SpawnButton" to="." method="_on_SpawnButton_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/WalkButton" to="." method="_on_WalkButton_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/BlockButton" to="." method="_on_BlockButton_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/DigButton" to="." method="_on_DigButton_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/UmbrellaButton" to="." method="_on_UmbrellaButton_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/KillButton" to="." method="_on_KillButton_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/OutButton" to="." method="_on_OutButton_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/ToggleState" to="." method="_on_ToggleState_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/Close" to="." method="_on_Close_pressed"]
