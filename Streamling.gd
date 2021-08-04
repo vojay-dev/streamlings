@@ -81,7 +81,14 @@ func _physics_process(_delta):
 	velocity.y += gravity
 	velocity = move_and_slide(velocity, Vector2.UP, false, 4, deg2rad(80))
 
-func _on_animation_finished():
+func _on_OutAnimation_animation_finished():
 	if not alive:
-		emit_signal("die", streamling_name)
-		queue_free()
+		die()
+
+func _on_Animations_animation_finished():
+	if $Animations.animation == "hit_ground" and not alive:
+		die()
+
+func die():
+	emit_signal("die", streamling_name)
+	queue_free()

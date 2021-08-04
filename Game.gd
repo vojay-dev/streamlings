@@ -8,7 +8,7 @@ var bitMap = BitMap.new()
 var streamling = preload("res://Streamling.tscn")
 var streamlings = {}
 
-var show_state = true
+var show_state = false
 var update_collision_shape = true
 
 func _show_splash():

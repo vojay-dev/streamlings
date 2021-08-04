@@ -65,6 +65,7 @@ centered = false
 [node name="Goal" type="AnimatedSprite" parent="."]
 position = Vector2( 160, 148.487 )
 frames = SubResource( 1 )
+frame = 1
 playing = true
 
 [node name="Door" type="Sprite" parent="."]
@@ -135,6 +136,7 @@ collision_mask = 6
 shape = SubResource( 5 )
 
 [node name="DebugOverlay" parent="." instance=ExtResource( 15 )]
+visible = false
 
 [node name="Splash" type="ColorRect" parent="."]
 visible = false
