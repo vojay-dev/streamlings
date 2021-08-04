@@ -15,6 +15,7 @@ var direction = 1
 
 var umbrella_activated = false
 var alive = true
+var saved = false
 
 var game
 
@@ -75,7 +76,7 @@ func down_collision():
 func _physics_process(_delta):
 	$Labels/Rows/StateLabel.visible = game.show_state
 
-	if not alive:
+	if not alive or saved:
 		return
 
 	velocity.y += gravity
@@ -89,6 +90,16 @@ func _on_Animations_animation_finished():
 	if $Animations.animation == "hit_ground" and not alive:
 		die()
 
+func shrink():
+	saved = true
+	$Animations.play("air")
+	$AnimationPlayer.play("shrink")
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "shrink":
+		queue_free()
+
 func die():
 	emit_signal("die", streamling_name)
 	queue_free()
+

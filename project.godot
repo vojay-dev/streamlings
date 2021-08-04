@@ -75,6 +75,10 @@ boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Global.gd"
+
 [display]
 
 window/size/width=432
@@ -98,6 +102,7 @@ debug_menu={
 2d_physics/layer_2="streamlings-normal"
 2d_physics/layer_3="streamlings-collide"
 2d_physics/layer_4="ground"
+2d_physics/layer_5="goal"
 
 [physics]
 

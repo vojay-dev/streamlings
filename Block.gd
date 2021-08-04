@@ -9,5 +9,8 @@ func enter():
 	streamling.play("block")
 	streamling.velocity.x = 0
 
+func physics_process(_delta):
+	streamling.velocity.x = 0
+
 func exit():
 	streamling.deactivate_collision()

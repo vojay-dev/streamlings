@@ -7,6 +7,7 @@ var bitMap = BitMap.new()
 
 var streamling = preload("res://Streamling.tscn")
 var streamlings = {}
+var streamlings_saved = []
 
 var show_state = false
 var update_collision_shape = true
@@ -42,7 +43,7 @@ func _ready():
 	update_collision_shape()
 
 	_init_twitch()
-	_update_user_list()
+	$GameUI.update_user_list()
 
 func _init_twitch():
 	$TwitchClient.channel_name = "vojay"
@@ -80,16 +81,6 @@ func delete_pixels(pixel_positions):
 		image.set_pixel(pixel_position.x, pixel_position.y, Color(0, 0, 0, 0))
 		image.unlock()
 
-func _update_user_list():
-	$UserListHeader.text = "Aktive Streamlinge (%d):" % [streamlings.size()]
-
-	var text = ""
-
-	for streamling in streamlings:
-		text += "%s\n" % [streamling]
-
-	$UserList.text = text
-
 func update_collision_shape():
 	update_collision_shape = true
 
@@ -118,11 +109,9 @@ func _on_TwitchClient_received_chat_message(user, message):
 func _on_Streamling_die(streamling_name):
 	streamlings.erase(streamling_name)
 
-func _on_UserListUpdateTimer_timeout():
-	_update_user_list()
+func _on_TwitchClient_received_command(user, command: String, args):
+	command = command.to_lower()
 
-func _on_TwitchClient_received_command(user, command, args):
-	print(command)
 	if command == "join":
 		create_lemming(user)
 
@@ -180,3 +169,17 @@ func create_lemming(user):
 
 func _on_Ground_body_entered(streamling):
 	streamling.out()
+
+func _on_Goal_streamling_reached_goal(streamling: Streamling):
+	streamling.shrink()
+	streamlings.erase(streamling.streamling_name)
+	
+	if not streamling.streamling_name in streamlings_saved:
+		Global.streamlings_saved += 1
+		$GameUI.update_streamlings_saved_label()
+		
+		if Global.streamlings_saved >= Global.streamlings_threshold:
+			print("YAY GEWONNEN LEUDE")
+			get_tree().reload_current_scene()
+	
+	streamlings_saved.append(streamling.streamling_name)
