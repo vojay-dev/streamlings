@@ -26,12 +26,14 @@ func set_state(state):
 	$Labels/Rows/StateLabel.text = str(state)
 
 func activate_umbrella():
-	$Labels/Rows/NameContainer/UmbrellaIcon.visible = true
-	umbrella_activated = true
+	if alive:
+		$Labels/Rows/NameContainer/UmbrellaIcon.visible = true
+		umbrella_activated = true
 
 func deactivate_umbrella():
-	$Labels/Rows/NameContainer/UmbrellaIcon.visible = false
-	umbrella_activated = false
+	if alive:
+		$Labels/Rows/NameContainer/UmbrellaIcon.visible = false
+		umbrella_activated = false
 
 func set_name(name, position=0):
 	streamling_name = name
@@ -43,19 +45,20 @@ func activate_collision():
 func deactivate_collision():
 	collision_layer = COLLISION_LAYER_NORMAL
 
-func out():
-	alive = false
+func play(animation):
+	$Animations.play(animation)
+
+func play_out():
 	$OutAnimation.visible = true
 	$OutAnimation.play("default")
 	$Animations.visible = false
 	$Labels.visible = false
 
-func kill():
-	alive = false
-	$Animations.play("hit_ground")
+func out():
+	$StateMachine.transition_to("Out")
 
-func play(animation):
-	$Animations.play(animation)
+func kill():
+	$StateMachine.transition_to("Die")
 
 func walk():
 	$StateMachine.transition_to("Walk")
