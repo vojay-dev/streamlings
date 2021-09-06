@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Block.gd"
 }, {
+"base": "Reference",
+"class": "CommandData",
+"language": "GDScript",
+"path": "res://addons/gift/util/cmd_data.gd"
+}, {
+"base": "Reference",
+"class": "CommandInfo",
+"language": "GDScript",
+"path": "res://addons/gift/util/cmd_info.gd"
+}, {
 "base": "State",
 "class": "Die",
 "language": "GDScript",
@@ -34,10 +44,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game.gd"
 }, {
+"base": "Node",
+"class": "Gift",
+"language": "GDScript",
+"path": "res://addons/gift/gift_node.gd"
+}, {
+"base": "Resource",
+"class": "ImageCache",
+"language": "GDScript",
+"path": "res://addons/gift/util/image_cache.gd"
+}, {
 "base": "State",
 "class": "Out",
 "language": "GDScript",
 "path": "res://Out.gd"
+}, {
+"base": "Reference",
+"class": "SenderData",
+"language": "GDScript",
+"path": "res://addons/gift/util/sender_data.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -67,10 +92,15 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Air": "",
 "Block": "",
+"CommandData": "",
+"CommandInfo": "",
 "Die": "",
 "Dig": "",
 "Game": "",
+"Gift": "",
+"ImageCache": "",
 "Out": "",
+"SenderData": "",
 "State": "",
 "StateMachine": "",
 "Streamling": "",
@@ -99,6 +129,10 @@ window/size/test_width=1296
 window/size/test_height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/gift/plugin.cfg" )
 
 [input]
 

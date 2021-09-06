@@ -12,6 +12,20 @@ var streamlings_saved = []
 var show_state = false
 var update_collision_shape = true
 
+func _init_gift():
+	var botname := "justinfan1928912891"
+	var token := ""
+	var initial_channel = "vojay"
+
+	$Gift.connect_to_twitch()
+	yield($Gift, "twitch_connected")
+
+	$Gift.authenticate_oauth(botname, token)
+	if(yield($Gift, "login_attempt") == false):
+	  print("Invalid username or token.")
+	  return
+	$Gift.join_channel(initial_channel)
+
 func _show_splash():
 	$Splash.visible = true
 	var tween = Tween.new()
@@ -36,13 +50,14 @@ func _hide_splash():
 func _ready():
 	_show_splash()
 
-	image.load("res://level/level1.png")
+	image = $Level/LevelSprite.texture.get_data()
 	texture.create_from_image(image, 0)
-	$Level/Sprite.texture = texture
+	$Level/LevelSprite.texture = texture
 
 	update_collision_shape()
 
-	_init_twitch()
+	#_init_twitch()
+	_init_gift()
 	$GameUI.update_user_list()
 
 func _init_twitch():
@@ -86,7 +101,7 @@ func update_collision_shape():
 
 func _update_collision_shape():
 	texture.create_from_image(image, 0)
-	$Level/Sprite.texture = texture
+	$Level/LevelSprite.texture = texture
 
 	for node in get_tree().get_nodes_in_group("collision_polygons"):
 		node.free()
@@ -183,3 +198,6 @@ func _on_Goal_streamling_reached_goal(streamling: Streamling):
 			get_tree().reload_current_scene()
 	
 	streamlings_saved.append(streamling.streamling_name)
+
+func _on_Gift_chat_message(sender_data, message):
+	$Chat.text += message + "\n"

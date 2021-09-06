@@ -198,6 +198,7 @@ frames = SubResource( 1 )
 [node name="Animations" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "walk"
+frame = 7
 playing = true
 __meta__ = {
 "_editor_description_": ""
