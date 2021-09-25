@@ -13,9 +13,9 @@ var show_state = false
 var update_collision_shape = true
 
 func _init_gift():
-	var botname := "justinfan1928912891"
+	randomize()
+	var botname := "justinfan" + str(randi())
 	var token := ""
-	var initial_channel = "vojay"
 
 	$Gift.connect_to_twitch()
 	yield($Gift, "twitch_connected")
@@ -24,7 +24,20 @@ func _init_gift():
 	if(yield($Gift, "login_attempt") == false):
 	  print("Invalid username or token.")
 	  return
-	$Gift.join_channel(initial_channel)
+	$Gift.join_channel(Global.channel)
+
+	$Gift.add_command("join", self, "create_lemming")
+	
+	_add_command(["schirm", "regenschirm", "umbrella"], "umbrella")
+	_add_command(["block", "blocken", "stehen", "stop", "stoppen", "halt", "halten"], "block")
+	_add_command(["walk", "laufen", "gehen", "go"], "walk")
+	_add_command(["dig", "dick", "buddeln", "graben", "mine", "creuser"], "dig")
+	_add_command(["kill", "suicide", "aufgeben", "platzen", "puff", "nooo", "harakiri"], "kill")
+
+func _add_command(aliases, func_name):
+	for alias in aliases:
+		print("adding alias: %s for function %s" % [alias, func_name])
+		$Gift.add_command(alias, self, func_name)
 
 func _show_splash():
 	$Splash.visible = true
@@ -56,14 +69,8 @@ func _ready():
 
 	update_collision_shape()
 
-	#_init_twitch()
 	_init_gift()
 	$GameUI.update_user_list()
-
-func _init_twitch():
-	$TwitchClient.channel_name = "vojay"
-	$TwitchClient.irc_connect()
-	$TwitchClient.start()
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("debug_menu"):
@@ -118,59 +125,42 @@ func _update_collision_shape():
 
 		$Level.add_child(collision_polygon)
 
-func _on_TwitchClient_received_chat_message(user, message):
-	pass
-
 func _on_Streamling_die(streamling_name):
 	streamlings.erase(streamling_name)
 
-func _on_TwitchClient_received_command(user, command: String, args):
-	command = command.to_lower()
-
-	if command == "join":
-		create_lemming(user)
-
-	if user in streamlings:
-		if command in ["schirm", "regenschirm", "umbrella"]:
-			umbrella(user)
-
-		if command in ["block", "blocken", "stehen", "stop", "stoppen", "halt", "halten"]:
-			block(user)
-
-		if command in ["walk", "laufen", "gehen", "go"]:
-			walk(user)
-
-		if command in ["dig", "dick", "buddeln", "graben", "mine", "creuser"]:
-			dig(user)
-
-		if command in ["kill", "suicide", "aufgeben", "platzen", "puff", "nooo", "harakiri"]:
-			kill(user)
-
-func umbrella(user):
+func umbrella(cmd_info : CommandInfo):
+	var user = cmd_info.sender_data.user
 	if user in streamlings:
 		streamlings[user].activate_umbrella()
 
-func block(user):
+func block(cmd_info : CommandInfo):
+	var user = cmd_info.sender_data.user
 	if user in streamlings:
 		streamlings[user].block()
 
-func walk(user):
+func walk(cmd_info : CommandInfo):
+	var user = cmd_info.sender_data.user
 	if user in streamlings:
 		streamlings[user].walk()
 
-func dig(user):
+func dig(cmd_info : CommandInfo):
+	var user = cmd_info.sender_data.user
 	if user in streamlings:
 		streamlings[user].dig()
 
-func kill(user):
+func kill(cmd_info : CommandInfo):
+	var user = cmd_info.sender_data.user
 	if user in streamlings:
 		streamlings[user].kill()
 
-func out(user):
+func out(cmd_info : CommandInfo):
+	var user = cmd_info.sender_data.user
 	if user in streamlings:
 		streamlings[user].out()
 
-func create_lemming(user):
+func create_lemming(cmd_info : CommandInfo):
+	var user = cmd_info.sender_data.user
+
 	if not user in streamlings.keys():
 		var streamling = self.streamling.instance()
 		$Streamlings.add_child(streamling)
@@ -188,16 +178,13 @@ func _on_Ground_body_entered(streamling):
 func _on_Goal_streamling_reached_goal(streamling: Streamling):
 	streamling.shrink()
 	streamlings.erase(streamling.streamling_name)
-	
+
 	if not streamling.streamling_name in streamlings_saved:
 		Global.streamlings_saved += 1
 		$GameUI.update_streamlings_saved_label()
-		
+
 		if Global.streamlings_saved >= Global.streamlings_threshold:
 			print("YAY GEWONNEN LEUDE")
 			get_tree().reload_current_scene()
-	
-	streamlings_saved.append(streamling.streamling_name)
 
-func _on_Gift_chat_message(sender_data, message):
-	$Chat.text += message + "\n"
+	streamlings_saved.append(streamling.streamling_name)
