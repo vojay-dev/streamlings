@@ -1,10 +1,7 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://level/level1.png" type="Texture" id=1]
 [ext_resource path="res://Game.gd" type="Script" id=2]
 [ext_resource path="res://GameUI.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/door/door7.png" type="Texture" id=4]
-[ext_resource path="res://Goal.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/gift/gift_node.gd" type="Script" id=7]
 [ext_resource path="res://assets/fonts/pxlxxlcond.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://assets/fx/vignette.png" type="Texture" id=12]
@@ -25,22 +22,6 @@ script = ExtResource( 2 )
 position = Vector2( 216, 56 )
 scale = Vector2( 0.473046, 0.473045 )
 texture = ExtResource( 13 )
-
-[node name="Level" type="StaticBody2D" parent="."]
-
-[node name="LevelSprite" type="Sprite" parent="Level"]
-texture = ExtResource( 1 )
-centered = false
-
-[node name="Goal" parent="." instance=ExtResource( 5 )]
-position = Vector2( 161.023, 148.065 )
-
-[node name="Door" type="Sprite" parent="."]
-position = Vector2( 249.08, 38.5633 )
-texture = ExtResource( 4 )
-
-[node name="SpawnPosition" type="Position2D" parent="."]
-position = Vector2( 249.51, 38.7127 )
 
 [node name="Streamlings" type="Node2D" parent="."]
 
@@ -85,5 +66,5 @@ __meta__ = {
 [node name="Gift" type="Node" parent="."]
 script = ExtResource( 7 )
 
-[connection signal="streamling_reached_goal" from="Goal" to="." method="_on_Goal_streamling_reached_goal"]
 [connection signal="body_entered" from="Ground" to="." method="_on_Ground_body_entered"]
+[connection signal="reset_level" from="GameUI" to="." method="_on_GameUI_reset_level"]

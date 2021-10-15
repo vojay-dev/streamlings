@@ -41,10 +41,10 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-margin_left = 353.138
-margin_top = 140.95
-margin_right = 427.138
-margin_bottom = 234.95
+margin_left = 346.194
+margin_top = 83.3876
+margin_right = 420.194
+margin_bottom = 211.388
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -57,7 +57,7 @@ texture = ExtResource( 3 )
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 67.0
-margin_bottom = 96.0
+margin_bottom = 121.0
 custom_constants/vseparation = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -65,71 +65,86 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="PanelContainer/GridContainer"]
 margin_right = 60.0
-margin_bottom = 8.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 0, 15 )
 text = "DEBUG MENU"
 align = 1
 
 [node name="SpawnButton" type="Button" parent="PanelContainer/GridContainer"]
-margin_top = 9.0
+margin_top = 16.0
 margin_right = 60.0
-margin_bottom = 17.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 60, 0 )
 text = "spawn streamling"
 
 [node name="WalkButton" type="Button" parent="PanelContainer/GridContainer"]
-margin_top = 18.0
+margin_top = 25.0
 margin_right = 60.0
-margin_bottom = 26.0
+margin_bottom = 33.0
 text = "walk"
 
 [node name="BlockButton" type="Button" parent="PanelContainer/GridContainer"]
-margin_top = 27.0
+margin_top = 34.0
 margin_right = 60.0
-margin_bottom = 35.0
+margin_bottom = 42.0
 text = "block"
 
 [node name="DigButton" type="Button" parent="PanelContainer/GridContainer"]
-margin_top = 36.0
+margin_top = 43.0
 margin_right = 60.0
-margin_bottom = 44.0
+margin_bottom = 51.0
 text = "dig"
 
-[node name="UmbrellaButton" type="Button" parent="PanelContainer/GridContainer"]
-margin_top = 45.0
+[node name="BuildButton" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 52.0
 margin_right = 60.0
-margin_bottom = 53.0
+margin_bottom = 60.0
+text = "build"
+
+[node name="UmbrellaButton" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 61.0
+margin_right = 60.0
+margin_bottom = 69.0
 text = "activate umbrella"
 
 [node name="KillButton" type="Button" parent="PanelContainer/GridContainer"]
-margin_top = 54.0
+margin_top = 70.0
 margin_right = 60.0
-margin_bottom = 62.0
+margin_bottom = 78.0
 text = "kill"
 
 [node name="OutButton" type="Button" parent="PanelContainer/GridContainer"]
-margin_top = 63.0
+margin_top = 79.0
 margin_right = 60.0
-margin_bottom = 71.0
+margin_bottom = 87.0
 text = "out"
 
 [node name="ToggleState" type="Button" parent="PanelContainer/GridContainer"]
-margin_top = 72.0
+margin_top = 88.0
 margin_right = 60.0
-margin_bottom = 80.0
+margin_bottom = 96.0
 text = "toggle state labels"
 
-[node name="Close" type="Button" parent="PanelContainer/GridContainer"]
-margin_top = 81.0
+[node name="ToggleMouse" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 97.0
 margin_right = 60.0
-margin_bottom = 89.0
+margin_bottom = 105.0
+text = "toggle delete with mouse"
+
+[node name="Close" type="Button" parent="PanelContainer/GridContainer"]
+margin_top = 106.0
+margin_right = 60.0
+margin_bottom = 114.0
 text = "close"
 
 [connection signal="pressed" from="PanelContainer/GridContainer/SpawnButton" to="." method="_on_SpawnButton_pressed"]
 [connection signal="pressed" from="PanelContainer/GridContainer/WalkButton" to="." method="_on_WalkButton_pressed"]
 [connection signal="pressed" from="PanelContainer/GridContainer/BlockButton" to="." method="_on_BlockButton_pressed"]
 [connection signal="pressed" from="PanelContainer/GridContainer/DigButton" to="." method="_on_DigButton_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/BuildButton" to="." method="_on_BuildButton_pressed"]
 [connection signal="pressed" from="PanelContainer/GridContainer/UmbrellaButton" to="." method="_on_UmbrellaButton_pressed"]
 [connection signal="pressed" from="PanelContainer/GridContainer/KillButton" to="." method="_on_KillButton_pressed"]
 [connection signal="pressed" from="PanelContainer/GridContainer/OutButton" to="." method="_on_OutButton_pressed"]
 [connection signal="pressed" from="PanelContainer/GridContainer/ToggleState" to="." method="_on_ToggleState_pressed"]
+[connection signal="pressed" from="PanelContainer/GridContainer/ToggleMouse" to="." method="_on_ToggleMouse_pressed"]
 [connection signal="pressed" from="PanelContainer/GridContainer/Close" to="." method="_on_Close_pressed"]

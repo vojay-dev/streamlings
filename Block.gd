@@ -11,6 +11,9 @@ func enter():
 
 func physics_process(_delta):
 	streamling.velocity.x = 0
+	
+	if not streamling.down_collision():
+		state_machine.transition_to("Air")
 
 func exit():
 	streamling.deactivate_collision()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=2]
+[gd_scene load_steps=111 format=2]
 
 [ext_resource path="res://Streamling.gd" type="Script" id=1]
 [ext_resource path="res://assets/lemming/walk/walk1.png" type="Texture" id=2]
@@ -94,6 +94,15 @@
 [ext_resource path="res://assets/lemming/air/air8.png" type="Texture" id=92]
 [ext_resource path="res://Die.gd" type="Script" id=93]
 [ext_resource path="res://Out.gd" type="Script" id=94]
+[ext_resource path="res://Build.gd" type="Script" id=95]
+[ext_resource path="res://assets/lemming/build/build4.png" type="Texture" id=96]
+[ext_resource path="res://assets/lemming/build/build1.png" type="Texture" id=97]
+[ext_resource path="res://assets/lemming/build/build2.png" type="Texture" id=98]
+[ext_resource path="res://assets/lemming/build/build3.png" type="Texture" id=99]
+[ext_resource path="res://assets/lemming/build/build6.png" type="Texture" id=100]
+[ext_resource path="res://assets/lemming/build/build8.png" type="Texture" id=101]
+[ext_resource path="res://assets/lemming/build/build5.png" type="Texture" id=102]
+[ext_resource path="res://assets/lemming/build/build7.png" type="Texture" id=103]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -105,6 +114,26 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 3 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 28 ), ExtResource( 31 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 32 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 42 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 38 ), ExtResource( 33 ), ExtResource( 39 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 34 ) ],
+"loop": true,
+"name": "block",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ), ExtResource( 96 ), ExtResource( 102 ), ExtResource( 100 ), ExtResource( 103 ), ExtResource( 101 ) ],
+"loop": true,
+"name": "build",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 79 ), ExtResource( 73 ), ExtResource( 77 ), ExtResource( 78 ), ExtResource( 82 ), ExtResource( 72 ), ExtResource( 74 ) ],
+"loop": true,
+"name": "dig",
+"speed": 14.0
+}, {
 "frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 22 ), ExtResource( 19 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 21 ), ExtResource( 20 ) ],
 "loop": false,
 "name": "umbrella",
@@ -119,21 +148,6 @@ animations = [ {
 "loop": false,
 "name": "hit_ground",
 "speed": 8.0
-}, {
-"frames": [ ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 79 ), ExtResource( 73 ), ExtResource( 77 ), ExtResource( 78 ), ExtResource( 82 ), ExtResource( 72 ), ExtResource( 74 ) ],
-"loop": true,
-"name": "dig",
-"speed": 14.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 3 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 28 ), ExtResource( 31 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 32 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 42 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 38 ), ExtResource( 33 ), ExtResource( 39 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 34 ) ],
-"loop": true,
-"name": "block",
-"speed": 7.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=3]
@@ -198,7 +212,7 @@ frames = SubResource( 1 )
 [node name="Animations" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "walk"
-frame = 7
+frame = 1
 playing = true
 __meta__ = {
 "_editor_description_": ""
@@ -213,10 +227,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 0.0764008
-margin_top = -14.6647
-margin_right = 40.0764
-margin_bottom = 25.3353
+margin_left = 0.674233
+margin_top = -14.1997
+margin_right = 40.6742
+margin_bottom = 25.8003
 use_top_left = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -285,6 +299,9 @@ script = ExtResource( 65 )
 
 [node name="Dig" type="Node" parent="StateMachine"]
 script = ExtResource( 66 )
+
+[node name="Build" type="Node" parent="StateMachine"]
+script = ExtResource( 95 )
 
 [node name="Die" type="Node" parent="StateMachine"]
 script = ExtResource( 93 )

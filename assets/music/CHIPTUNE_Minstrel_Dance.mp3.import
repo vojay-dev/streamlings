@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/CHIPTUNE_Minstrel_Dance.mp3-2d2d33783b7a6011006b33a95728aabc.mp3str"
+
+[deps]
+
+source_file="res://assets/music/CHIPTUNE_Minstrel_Dance.mp3"
+dest_files=[ "res://.import/CHIPTUNE_Minstrel_Dance.mp3-2d2d33783b7a6011006b33a95728aabc.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

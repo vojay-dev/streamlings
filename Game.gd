@@ -27,12 +27,15 @@ func _init_gift():
 	$Gift.join_channel(Global.channel)
 
 	$Gift.add_command("join", self, "create_lemming")
-	
+
 	_add_command(["schirm", "regenschirm", "umbrella"], "umbrella")
 	_add_command(["block", "blocken", "stehen", "stop", "stoppen", "halt", "halten"], "block")
 	_add_command(["walk", "laufen", "gehen", "go"], "walk")
 	_add_command(["dig", "dick", "buddeln", "graben", "mine", "creuser"], "dig")
 	_add_command(["kill", "suicide", "aufgeben", "platzen", "puff", "nooo", "harakiri"], "kill")
+	_add_command(["build", "stairs", "treppe", "bauen", "stufen", "steine"], "build")
+
+	$Gift.add_command("reset", self, "reset", 0, 0, Gift.PermissionFlag.STREAMER)
 
 func _add_command(aliases, func_name):
 	for alias in aliases:
@@ -62,14 +65,9 @@ func _hide_splash():
 
 func _ready():
 	_show_splash()
-
-	image = $Level/LevelSprite.texture.get_data()
-	texture.create_from_image(image, 0)
-	$Level/LevelSprite.texture = texture
-
-	update_collision_shape()
-
+	_load_level(Global.selected_level)
 	_init_gift()
+
 	$GameUI.update_user_list()
 
 func _physics_process(delta):
@@ -77,7 +75,7 @@ func _physics_process(delta):
 		$DebugOverlay.visible = !$DebugOverlay.visible
 
 	OS.set_window_title("fps: %d" % Engine.get_frames_per_second())
-	if Input.is_mouse_button_pressed(BUTTON_LEFT):
+	if Global.mouse_enabled and Input.is_mouse_button_pressed(BUTTON_LEFT):
 		image.lock()
 		var mouse_pos = get_global_mouse_position()
 
@@ -103,12 +101,18 @@ func delete_pixels(pixel_positions):
 		image.set_pixel(pixel_position.x, pixel_position.y, Color(0, 0, 0, 0))
 		image.unlock()
 
+func draw_pixels(pixel_positions, r, g, b):
+	for pixel_position in pixel_positions:
+		image.lock()
+		image.set_pixel(pixel_position.x, pixel_position.y, Color8(r, g, b, 255))
+		image.unlock()
+
 func update_collision_shape():
 	update_collision_shape = true
 
 func _update_collision_shape():
 	texture.create_from_image(image, 0)
-	$Level/LevelSprite.texture = texture
+	Global.active_level.get_node("LevelSprite").texture = texture
 
 	for node in get_tree().get_nodes_in_group("collision_polygons"):
 		node.free()
@@ -116,14 +120,14 @@ func _update_collision_shape():
 	bitMap.create_from_image_alpha(image)
 
 	var rect = Rect2(Vector2.ZERO, image.get_size())
-	var polygons = bitMap.opaque_to_polygons(rect)
+	var polygons = bitMap.opaque_to_polygons(rect, 1.5)
 
 	for polygon in polygons:
 		var collision_polygon = CollisionPolygon2D.new()
 		collision_polygon.polygon = polygon
 		collision_polygon.add_to_group("collision_polygons")
 
-		$Level.add_child(collision_polygon)
+		Global.active_level.add_child(collision_polygon)
 
 func _on_Streamling_die(streamling_name):
 	streamlings.erase(streamling_name)
@@ -148,6 +152,11 @@ func dig(cmd_info : CommandInfo):
 	if user in streamlings:
 		streamlings[user].dig()
 
+func build(cmd_info : CommandInfo):
+	var user = cmd_info.sender_data.user
+	if user in streamlings:
+		streamlings[user].build()
+
 func kill(cmd_info : CommandInfo):
 	var user = cmd_info.sender_data.user
 	if user in streamlings:
@@ -167,7 +176,7 @@ func create_lemming(cmd_info : CommandInfo):
 		streamlings[user] = streamling
 
 		streamling.set_name(user, streamlings.size() % 2)
-		streamling.position = $SpawnPosition.position
+		streamling.position = Global.active_level.get_node("SpawnPosition").position
 		streamling.game = self
 
 		streamling.connect("die", self, "_on_Streamling_die")
@@ -175,7 +184,7 @@ func create_lemming(cmd_info : CommandInfo):
 func _on_Ground_body_entered(streamling):
 	streamling.out()
 
-func _on_Goal_streamling_reached_goal(streamling: Streamling):
+func _on_Level_streamling_reached_goal(streamling: Streamling):
 	streamling.shrink()
 	streamlings.erase(streamling.streamling_name)
 
@@ -183,8 +192,43 @@ func _on_Goal_streamling_reached_goal(streamling: Streamling):
 		Global.streamlings_saved += 1
 		$GameUI.update_streamlings_saved_label()
 
-		if Global.streamlings_saved >= Global.streamlings_threshold:
-			print("YAY GEWONNEN LEUDE")
-			get_tree().reload_current_scene()
+		if Global.streamlings_saved >= Global.active_level.lemming_threshold:
+			if Global.active_level:
+				Global.active_level = null
+
+			get_tree().change_scene("res://Menu.tscn")
 
 	streamlings_saved.append(streamling.streamling_name)
+
+func reset(cmd_info : CommandInfo):
+	_reset()
+
+func _reset():
+	_load_level(Global.selected_level)
+	$GameUI.update_user_list()
+
+	for user in streamlings:
+		streamlings[user].queue_free()
+
+	streamlings.clear()
+
+	Global.streamlings_saved = 0
+
+func _load_level(level : PackedScene):
+	if Global.active_level:
+		Global.active_level.queue_free()
+
+	Global.active_level = Global.selected_level.instance()
+
+	add_child(Global.active_level)
+	move_child(Global.active_level, 1)
+
+	image = Global.active_level.get_node("LevelSprite").texture.get_data()
+	texture.create_from_image(image, 0)
+	Global.active_level.get_node("LevelSprite").texture = texture
+
+	update_collision_shape()
+	Global.active_level.connect("streamling_reached_goal", self, "_on_Level_streamling_reached_goal")
+
+func _on_GameUI_reset_level():
+	_reset()

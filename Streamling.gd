@@ -69,6 +69,10 @@ func block():
 func dig():
 	$StateMachine.transition_to("Dig")
 
+func build():
+	if down_collision():
+		$StateMachine.transition_to("Build")
+
 func emit_dig_particles():
 	$DigParticles/DigParticles1.emitting = true
 	$DigParticles/DigParticles2.emitting = true
@@ -77,7 +81,7 @@ func down_collision():
 	return $RayCastDown.is_colliding()
 
 func _physics_process(_delta):
-	$Labels/Rows/StateLabel.visible = game.show_state
+	$Labels/Rows/StateLabel.visible = game and game.show_state
 
 	if not alive or saved:
 		return

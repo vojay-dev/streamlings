@@ -17,14 +17,14 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 5.0168, 7.58982 )
+extents = Vector2( 4.52493, 7.04222 )
 
 [node name="Goal" type="Node2D"]
 script = ExtResource( 7 )
 
 [node name="Animation" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-frame = 2
+frame = 5
 playing = true
 
 [node name="GoalArea" type="Area2D" parent="."]
@@ -32,7 +32,7 @@ collision_layer = 16
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalArea"]
-position = Vector2( 0.943457, 5.42238 )
+position = Vector2( -0.0731448, 4.87478 )
 shape = SubResource( 2 )
 
 [connection signal="body_entered" from="GoalArea" to="." method="_on_GoalArea_body_entered"]

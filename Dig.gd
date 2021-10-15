@@ -24,6 +24,7 @@ func enter():
 	#timer.start()
 
 func physics_process(_delta):
+	streamling.velocity.x = 0
 	var now = OS.get_unix_time()
 	var diff = now - last_dig
 	
@@ -32,7 +33,6 @@ func physics_process(_delta):
 		last_dig = now
 	elif not streamling.down_collision():
 		state_machine.transition_to("Air")
-
 
 func _dig():
 	var positions = []
