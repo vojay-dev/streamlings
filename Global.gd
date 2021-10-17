@@ -28,7 +28,7 @@ func disable_fullscreen():
 	OS.window_size = initial_window_size
 
 func get_levels():
-	var levels = []
+	var level_scenes = []
 	var dir = Directory.new()
 
 	dir.open(".")
@@ -39,8 +39,8 @@ func get_levels():
 		if file == "":
 			break
 		elif file.begins_with("Level") and file.ends_with(".tscn"):
-			levels.append(load("res://" + file))
+			level_scenes.append(load("res://" + file))
 
 	dir.list_dir_end()
 
-	return levels
+	return level_scenes

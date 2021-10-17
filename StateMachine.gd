@@ -7,9 +7,9 @@ onready var state: State = get_node(initial_state)
 func _ready():
 	yield(owner, "ready")
 
-	for state in get_children():
-		state.streamling = owner as Streamling
-		state.state_machine = self
+	for _state in get_children():
+		_state.streamling = owner as Streamling
+		_state.state_machine = self
 
 	state.enter()
 

@@ -13,7 +13,7 @@ func get_name():
 func enter():
 	streamling.play("air")
 
-func physics_process(delta):
+func physics_process(_delta):
 	if streamling.umbrella_activated:
 		streamling.play("umbrella")
 		streamling.velocity.y = min(streamling.velocity.y, max_fall_speed_umbrella)

@@ -65,12 +65,12 @@ func _hide_splash():
 
 func _ready():
 	_show_splash()
-	_load_level(Global.selected_level)
+	_load_level()
 	_init_gift()
 
 	$GameUI.update_user_list()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("debug_menu"):
 		$DebugOverlay.visible = !$DebugOverlay.visible
 
@@ -175,8 +175,8 @@ func create_lemming(cmd_info : CommandInfo):
 		$Streamlings.add_child(streamling)
 		streamlings[user] = streamling
 
-		streamling.set_name(user, streamlings.size() % 2)
-		streamling.position = Global.active_level.get_node("SpawnPosition").position
+		streamling.set_name(user)
+		streamling.position = Global.active_level.get_node("Spawn").get_spawn_position()
 		streamling.game = self
 
 		streamling.connect("die", self, "_on_Streamling_die")
@@ -196,15 +196,15 @@ func _on_Level_streamling_reached_goal(streamling: Streamling):
 			if Global.active_level:
 				Global.active_level = null
 
-			get_tree().change_scene("res://Menu.tscn")
+			var _error = get_tree().change_scene("res://Menu.tscn")
 
 	streamlings_saved.append(streamling.streamling_name)
 
-func reset(cmd_info : CommandInfo):
+func reset(_cmd_info : CommandInfo):
 	_reset()
 
 func _reset():
-	_load_level(Global.selected_level)
+	_load_level()
 	$GameUI.update_user_list()
 
 	for user in streamlings:
@@ -214,7 +214,7 @@ func _reset():
 
 	Global.streamlings_saved = 0
 
-func _load_level(level : PackedScene):
+func _load_level():
 	if Global.active_level:
 		Global.active_level.queue_free()
 

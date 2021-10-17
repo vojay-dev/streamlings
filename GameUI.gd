@@ -24,7 +24,7 @@ func _ready():
 func _on_UserListUpdateTimer_timeout():
 	update_user_list()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	update_streamlings_saved_label()
 	$EnableFullscreen.visible = !OS.window_fullscreen
 	$DisableFullscreen.visible = OS.window_fullscreen and not OS.has_feature("web")
@@ -39,7 +39,7 @@ func _on_ResetLevel_pressed():
 	emit_signal("reset_level")
 
 func _on_BackToMenu_pressed():
-	get_tree().change_scene("res://Menu.tscn")
+	var _error = get_tree().change_scene("res://Menu.tscn")
 
 	if Global.active_level:
 		Global.active_level = null

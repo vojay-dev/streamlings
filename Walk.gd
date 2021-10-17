@@ -10,7 +10,7 @@ func enter():
 	streamling.play("walk")
 	streamling.velocity.x = walk_speed * streamling.direction
 
-func physics_process(delta):
+func physics_process(_delta):
 	if streamling.is_on_floor():
 		if streamling.velocity.x == 0:
 			_turn_around()

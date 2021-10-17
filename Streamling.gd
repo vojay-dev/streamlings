@@ -35,7 +35,7 @@ func deactivate_umbrella():
 		$Labels/Rows/NameContainer/UmbrellaIcon.visible = false
 		umbrella_activated = false
 
-func set_name(name, position=0):
+func set_name(name):
 	streamling_name = name
 	$Labels/Rows/NameContainer/NameLabel.text = streamling_name
 
