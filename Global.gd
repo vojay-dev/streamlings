@@ -17,7 +17,8 @@ func _ready():
 	levels = [
 		preload("res://Level1.tscn"),
 		preload("res://Level2.tscn"),
-		preload("res://Level3.tscn")
+		preload("res://Level3.tscn"),
+		preload("res://Level4.tscn")
 	]
 
 func enable_fullscreen():

@@ -7,7 +7,6 @@ var bitMap = BitMap.new()
 
 var streamling = preload("res://Streamling.tscn")
 var streamlings = {}
-var streamlings_saved = []
 
 var show_state = false
 var update_collision_shape = true
@@ -120,7 +119,7 @@ func _update_collision_shape():
 	bitMap.create_from_image_alpha(image)
 
 	var rect = Rect2(Vector2.ZERO, image.get_size())
-	var polygons = bitMap.opaque_to_polygons(rect, 1.5)
+	var polygons = bitMap.opaque_to_polygons(rect, 1.2)
 
 	for polygon in polygons:
 		var collision_polygon = CollisionPolygon2D.new()
@@ -182,23 +181,21 @@ func create_lemming(cmd_info : CommandInfo):
 		streamling.connect("die", self, "_on_Streamling_die")
 
 func _on_Ground_body_entered(streamling):
+	$Camera2D/AnimationPlayer.play("shake")
 	streamling.out()
 
 func _on_Level_streamling_reached_goal(streamling: Streamling):
 	streamling.shrink()
 	streamlings.erase(streamling.streamling_name)
 
-	if not streamling.streamling_name in streamlings_saved:
-		Global.streamlings_saved += 1
-		$GameUI.update_streamlings_saved_label()
+	Global.streamlings_saved += 1
+	$GameUI.update_streamlings_saved_label()
 
-		if Global.streamlings_saved >= Global.active_level.lemming_threshold:
-			if Global.active_level:
-				Global.active_level = null
+	if Global.streamlings_saved >= Global.active_level.lemming_threshold:
+		if Global.active_level:
+			Global.active_level = null
 
-			var _error = get_tree().change_scene("res://Menu.tscn")
-
-	streamlings_saved.append(streamling.streamling_name)
+		var _error = get_tree().change_scene("res://Menu.tscn")
 
 func reset(_cmd_info : CommandInfo):
 	_reset()

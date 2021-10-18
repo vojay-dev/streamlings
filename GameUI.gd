@@ -12,7 +12,7 @@ func update_user_list():
 	for streamling in game.streamlings:
 		text += "%s\n" % [streamling]
 
-	$UserList.text = text
+	$ScrollContainer/UserList.text = text
 
 func update_streamlings_saved_label():
 	if Global.active_level:

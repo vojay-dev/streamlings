@@ -87,7 +87,7 @@ func _physics_process(_delta):
 		return
 
 	velocity.y += gravity
-	velocity = move_and_slide(velocity, Vector2.UP, false, 4, deg2rad(80))
+	velocity = move_and_slide(velocity, Vector2.UP, false, 4, deg2rad(90))
 
 func _on_OutAnimation_animation_finished():
 	if not alive:

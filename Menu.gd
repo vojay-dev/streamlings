@@ -33,6 +33,7 @@ func _ready():
 	$Logo/Tween.start()
 
 	_start_streamling_name_timer()
+	_set_toggle_music_texture()
 
 func _start_streamling_name_timer():
 	var timer = Timer.new()
@@ -85,3 +86,21 @@ func _on_EnableFullscreen_pressed():
 
 func _on_DisableFullscreen_pressed():
 	Global.disable_fullscreen()
+
+func _set_toggle_music_texture():
+	var playing = $AudioStreamPlayer.playing
+	var texture = load("res://assets/ui/icons/music%s.png" % ("On" if playing else "Off"))
+
+	$ToggleMusic.texture_normal = texture
+	$ToggleMusic.texture_pressed = texture
+	$ToggleMusic.texture_hover = texture
+	$ToggleMusic.texture_disabled = texture
+	$ToggleMusic.texture_focused = texture
+
+func _on_ToggleMusic_pressed():
+	if $AudioStreamPlayer.playing:
+		$AudioStreamPlayer.stop()
+	else:
+		$AudioStreamPlayer.play()
+
+	_set_toggle_music_texture()

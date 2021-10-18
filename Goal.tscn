@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/goal/goal1.png" type="Texture" id=1]
 [ext_resource path="res://assets/goal/goal4.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/goal/goal5.png" type="Texture" id=5]
 [ext_resource path="res://assets/goal/goal2.png" type="Texture" id=6]
 [ext_resource path="res://Goal.gd" type="Script" id=7]
+[ext_resource path="res://assets/fx/simple_light_100.png" type="Texture" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -24,7 +25,6 @@ script = ExtResource( 7 )
 
 [node name="Animation" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-frame = 5
 playing = true
 
 [node name="GoalArea" type="Area2D" parent="."]
@@ -34,5 +34,23 @@ collision_mask = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalArea"]
 position = Vector2( -0.0731448, 4.87478 )
 shape = SubResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -13.5676, -12.9546 )
+scale = Vector2( 0.181896, 0.207487 )
+texture = ExtResource( 8 )
+color = Color( 1, 0.435355, 0.239216, 1 )
+
+[node name="Light2D2" type="Light2D" parent="."]
+position = Vector2( 13.0574, -12.9546 )
+scale = Vector2( 0.181896, 0.207487 )
+texture = ExtResource( 8 )
+color = Color( 1, 0.435355, 0.239216, 1 )
+
+[node name="Light2D3" type="Light2D" parent="."]
+position = Vector2( -0.174439, 5.81355 )
+scale = Vector2( 0.367871, 0.274305 )
+texture = ExtResource( 8 )
+color = Color( 0.862745, 0.862745, 0.862745, 1 )
 
 [connection signal="body_entered" from="GoalArea" to="." method="_on_GoalArea_body_entered"]

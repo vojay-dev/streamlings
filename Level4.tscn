@@ -1,22 +1,22 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://level/level1.png" type="Texture" id=2]
+[ext_resource path="res://Spawn.tscn" type="PackedScene" id=1]
+[ext_resource path="res://level/level4.png" type="Texture" id=2]
 [ext_resource path="res://Goal.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Level.gd" type="Script" id=4]
-[ext_resource path="res://Spawn.tscn" type="PackedScene" id=5]
 
 [node name="Level" type="StaticBody2D"]
 script = ExtResource( 4 )
-lemming_threshold = 2
+lemming_threshold = 3
 
 [node name="LevelSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 centered = false
 
 [node name="Goal" parent="." instance=ExtResource( 3 )]
-position = Vector2( 181.625, 149.011 )
+position = Vector2( 392.506, 117.004 )
 
-[node name="Spawn" parent="." instance=ExtResource( 5 )]
-position = Vector2( 249.326, 38.2608 )
+[node name="Spawn" parent="." instance=ExtResource( 1 )]
+position = Vector2( 48.7747, 20.5699 )
 
 [connection signal="streamling_reached_goal" from="Goal" to="." method="_on_Goal_streamling_reached_goal"]
