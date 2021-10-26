@@ -34,7 +34,7 @@ func _init_gift():
 	_add_command(["kill", "suicide", "aufgeben", "platzen", "puff", "nooo", "harakiri"], "kill")
 	_add_command(["build", "stairs", "treppe", "bauen", "stufen", "steine"], "build")
 
-	$Gift.add_command("reset", self, "reset", 0, 0, Gift.PermissionFlag.STREAMER)
+	$Gift.add_command("reset", self, "reset", 0, 0, Gift.PermissionFlag.VIP_MOD_STREAMER)
 
 func _add_command(aliases, func_name):
 	for alias in aliases:
@@ -191,11 +191,8 @@ func _on_Level_streamling_reached_goal(streamling: Streamling):
 	Global.streamlings_saved += 1
 	$GameUI.update_streamlings_saved_label()
 
-	if Global.streamlings_saved >= Global.active_level.lemming_threshold:
-		if Global.active_level:
-			Global.active_level = null
-
-		var _error = get_tree().change_scene("res://Menu.tscn")
+	if Global.active_level and Global.streamlings_saved == Global.active_level.lemming_threshold:
+		$GameUI.show_winning_screen()
 
 func reset(_cmd_info : CommandInfo):
 	_reset()
@@ -229,3 +226,7 @@ func _load_level():
 
 func _on_GameUI_reset_level():
 	_reset()
+
+func _on_GameUI_level_done():
+	var _error = get_tree().change_scene("res://Menu.tscn")
+	Global.active_level = null

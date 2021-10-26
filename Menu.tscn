@@ -200,10 +200,10 @@ __meta__ = {
 
 [node name="Rays" type="ColorRect" parent="."]
 material = SubResource( 6 )
-margin_left = 419.447
-margin_top = -61.2455
-margin_right = 850.447
-margin_bottom = 177.755
+margin_left = 434.312
+margin_top = -59.4617
+margin_right = 865.312
+margin_bottom = 179.539
 rect_scale = Vector2( -1, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -353,7 +353,6 @@ shape = SubResource( 1 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -18.0
-autoplay = true
 
 [node name="Twitch" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.92549 )

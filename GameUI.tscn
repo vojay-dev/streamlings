@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/ornate-theme/ornate-theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/fonts/AvenuePixel-Regular.ttf" type="DynamicFontData" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://assets/ui/icons/larger.png" type="Texture" id=6]
 [ext_resource path="res://assets/ui/icons/return.png" type="Texture" id=7]
 [ext_resource path="res://assets/ui/icons/home.png" type="Texture" id=8]
+[ext_resource path="res://assets/ui/brick.png" type="Texture" id=9]
+[ext_resource path="res://assets/ui/umbrella2.png" type="Texture" id=10]
+[ext_resource path="res://assets/ornate-theme/pixelplay.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://assets/sounds/aplausos_2.mp3" type="AudioStream" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 8
@@ -22,6 +26,10 @@ outline_size = 1
 outline_color = Color( 0.121569, 0.345098, 0.447059, 1 )
 extra_spacing_bottom = -3
 font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 40
+font_data = ExtResource( 11 )
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
@@ -145,8 +153,107 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Resources" type="Control" parent="."]
+margin_left = 4.36535
+margin_right = 44.3653
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Resources"]
+margin_left = 1.0
+margin_top = 3.0
+margin_right = 84.0
+margin_bottom = 30.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="Resources"]
+margin_left = 5.0
+margin_top = 6.0
+margin_right = 81.0
+margin_bottom = 27.0
+color = Color( 0, 0, 0, 0.431373 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StoneLabel" type="Label" parent="Resources"]
+margin_left = 30.8943
+margin_top = 13.3535
+margin_right = 52.8943
+margin_bottom = 23.3535
+custom_fonts/font = SubResource( 2 )
+text = "42"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UmbrellaLabel" type="Label" parent="Resources"]
+margin_left = 65.8909
+margin_top = 13.0
+margin_right = 87.8909
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 2 )
+text = "42"
+
+[node name="StoneIcon" type="Sprite" parent="Resources"]
+position = Vector2( 18.7383, 16.4402 )
+texture = ExtResource( 9 )
+
+[node name="UmbrellaIcon" type="Sprite" parent="Resources"]
+position = Vector2( 54.8167, 17.4832 )
+texture = ExtResource( 10 )
+
+[node name="WinOverlay" type="Control" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="WinOverlay"]
+margin_left = -1.0
+margin_top = -3.0
+margin_right = 434.0
+margin_bottom = 244.0
+color = Color( 0, 0, 0, 0.92549 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="WinOverlay"]
+margin_top = 88.0
+margin_right = 432.0
+margin_bottom = 143.0
+rect_clip_content = false
+theme = ExtResource( 1 )
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[center][tornado radius=5 freq=2]GEWONNEN[/tornado][/center]"
+text = "GEWONNEN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="WinOverlay"]
+
+[node name="LevelDoneTimer" type="Timer" parent="WinOverlay"]
+wait_time = 5.0
+one_shot = true
+
+[node name="WinningSound" type="AudioStreamPlayer" parent="WinOverlay"]
+stream = ExtResource( 12 )
+volume_db = -10.0
+
 [connection signal="timeout" from="UserListUpdateTimer" to="." method="_on_UserListUpdateTimer_timeout"]
 [connection signal="pressed" from="EnableFullscreen" to="." method="_on_EnableFullscreen_pressed"]
 [connection signal="pressed" from="DisableFullscreen" to="." method="_on_DisableFullscreen_pressed"]
 [connection signal="pressed" from="ResetLevel" to="." method="_on_ResetLevel_pressed"]
 [connection signal="pressed" from="BackToMenu" to="." method="_on_BackToMenu_pressed"]
+[connection signal="timeout" from="WinOverlay/LevelDoneTimer" to="." method="_on_LevelDoneTimer_timeout"]

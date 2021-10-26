@@ -1,5 +1,7 @@
 extends Node
 
+const STATE_FILE = "user://state.dat"
+
 var active_level
 var selected_level
 var levels
@@ -11,7 +13,21 @@ var mouse_enabled = false
 
 var initial_window_size
 
+var state = {
+	"music_enabled": true,
+	"level_times": {}
+}
+
+func is_music_enabled():
+	return state["music_enabled"]
+
+func set_music_enabled(music_enabled):
+	state["music_enabled"] = music_enabled
+	save_state()
+
 func _ready():
+	load_state()
+	save_state()
 	initial_window_size = OS.window_size
 	#levels = get_levels()
 	levels = [
@@ -20,6 +36,27 @@ func _ready():
 		preload("res://Level3.tscn"),
 		preload("res://Level4.tscn")
 	]
+
+func load_state():
+	var file = File.new()
+
+	if file.file_exists(STATE_FILE):
+		print("loading state from file...")
+
+		file.open(STATE_FILE, File.READ)
+		state = file.get_var()
+
+		print(state)
+	else:
+		print("loading default state...")
+		print(state)
+
+func save_state():
+	var file = File.new()
+
+	file.open(STATE_FILE, File.WRITE)
+	file.store_var(state)
+	file.close()
 
 func enable_fullscreen():
 	OS.window_fullscreen = true

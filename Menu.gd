@@ -33,7 +33,11 @@ func _ready():
 	$Logo/Tween.start()
 
 	_start_streamling_name_timer()
-	_set_toggle_music_texture()
+	
+	if Global.is_music_enabled():
+		_start_music()
+	else:
+		_stop_music()
 
 func _start_streamling_name_timer():
 	var timer = Timer.new()
@@ -97,10 +101,18 @@ func _set_toggle_music_texture():
 	$ToggleMusic.texture_disabled = texture
 	$ToggleMusic.texture_focused = texture
 
+func _start_music():
+	$AudioStreamPlayer.play()
+	Global.set_music_enabled(true)
+	_set_toggle_music_texture()
+	
+func _stop_music():
+	$AudioStreamPlayer.stop()
+	Global.set_music_enabled(false)
+	_set_toggle_music_texture()
+
 func _on_ToggleMusic_pressed():
 	if $AudioStreamPlayer.playing:
-		$AudioStreamPlayer.stop()
+		_stop_music()
 	else:
-		$AudioStreamPlayer.play()
-
-	_set_toggle_music_texture()
+		_start_music()

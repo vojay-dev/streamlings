@@ -8,6 +8,8 @@
 [node name="Level" type="StaticBody2D"]
 script = ExtResource( 4 )
 lemming_threshold = 2
+stones = 6
+umbrellas = 12
 
 [node name="LevelSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

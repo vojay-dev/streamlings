@@ -322,4 +322,5 @@ anims/RESET = SubResource( 10 )
 anims/shake = SubResource( 11 )
 
 [connection signal="body_entered" from="Ground" to="." method="_on_Ground_body_entered"]
+[connection signal="level_done" from="GameUI" to="." method="_on_GameUI_level_done"]
 [connection signal="reset_level" from="GameUI" to="." method="_on_GameUI_reset_level"]

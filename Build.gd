@@ -21,6 +21,10 @@ func physics_process(_delta):
 		last_build = now
 
 func _build():
+	if Global.active_level.stones <= 0:
+		state_machine.transition_to("Walk")
+		return
+		
 	var positions = []
 	var streamling_position = streamling.position
 
@@ -33,6 +37,8 @@ func _build():
 	
 	streamling.position.x += 4 * streamling.direction
 	streamling.position.y -= 1
+	
+	Global.active_level.stones -= 1
 
 func exit():
 	pass

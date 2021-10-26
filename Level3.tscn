@@ -8,6 +8,8 @@
 [node name="Level" type="StaticBody2D"]
 script = ExtResource( 4 )
 lemming_threshold = 3
+stones = 100
+umbrellas = 24
 
 [node name="LevelSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -17,6 +19,6 @@ centered = false
 position = Vector2( 355.645, 165.183 )
 
 [node name="Spawn" parent="." instance=ExtResource( 1 )]
-position = Vector2( 51.5906, 19.8425 )
+position = Vector2( 122.646, 20.8936 )
 
 [connection signal="streamling_reached_goal" from="Goal" to="." method="_on_Goal_streamling_reached_goal"]

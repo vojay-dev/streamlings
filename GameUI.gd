@@ -1,6 +1,7 @@
 extends Control
 
 signal reset_level
+signal level_done
 
 onready var game: Game = owner as Game
 
@@ -18,6 +19,15 @@ func update_streamlings_saved_label():
 	if Global.active_level:
 		$StreamlingSavedLabel.text = "Streamlinge gerettet: %d von %d" % [Global.streamlings_saved, Global.active_level.lemming_threshold]
 
+func show_winning_screen():
+	$WinOverlay.visible = true
+	$WinOverlay/Tween.interpolate_property($WinOverlay, "modulate", Color8(255, 255, 255, 0), Color8(255, 255, 255, 255), 2)
+	$WinOverlay/Tween.start()
+	
+	$WinOverlay/WinningSound.play()
+	
+	$WinOverlay/LevelDoneTimer.start()
+
 func _ready():
 	update_streamlings_saved_label()
 
@@ -28,6 +38,10 @@ func _physics_process(_delta):
 	update_streamlings_saved_label()
 	$EnableFullscreen.visible = !OS.window_fullscreen
 	$DisableFullscreen.visible = OS.window_fullscreen and not OS.has_feature("web")
+	
+	if Global.active_level:
+		$Resources/StoneLabel.text = str(Global.active_level.stones)
+		$Resources/UmbrellaLabel.text = str(Global.active_level.umbrellas)
 
 func _on_EnableFullscreen_pressed():
 	Global.enable_fullscreen()
@@ -43,3 +57,6 @@ func _on_BackToMenu_pressed():
 
 	if Global.active_level:
 		Global.active_level = null
+
+func _on_LevelDoneTimer_timeout():
+	emit_signal("level_done")

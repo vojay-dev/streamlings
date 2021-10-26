@@ -26,9 +26,16 @@ func set_state(state):
 	$Labels/Rows/StateLabel.text = str(state)
 
 func activate_umbrella():
-	if alive:
-		$Labels/Rows/NameContainer/UmbrellaIcon.visible = true
-		umbrella_activated = true
+	if not alive:
+		return
+
+	if Global.active_level:
+		if Global.active_level.umbrellas <= 0:
+			return
+		Global.active_level.umbrellas -= 1
+
+	$Labels/Rows/NameContainer/UmbrellaIcon.visible = true
+	umbrella_activated = true
 
 func deactivate_umbrella():
 	if alive:
@@ -80,14 +87,14 @@ func emit_dig_particles():
 func down_collision():
 	return $RayCastDown.is_colliding()
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	$Labels/Rows/StateLabel.visible = game and game.show_state
 
 	if not alive or saved:
 		return
 
 	velocity.y += gravity
-	velocity = move_and_slide(velocity, Vector2.UP, false, 4, deg2rad(90))
+	velocity = move_and_slide(velocity, Vector2.UP, false, 12, deg2rad(100))
 
 func _on_OutAnimation_animation_finished():
 	if not alive:

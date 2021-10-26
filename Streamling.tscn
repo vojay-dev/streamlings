@@ -114,45 +114,45 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 22 ), ExtResource( 19 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 21 ), ExtResource( 20 ) ],
-"loop": false,
-"name": "umbrella",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 87 ), ExtResource( 88 ), ExtResource( 85 ), ExtResource( 89 ), ExtResource( 86 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ) ],
 "loop": true,
 "name": "air",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 22 ), ExtResource( 19 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 21 ), ExtResource( 20 ) ],
+"loop": false,
+"name": "umbrella",
+"speed": 7.0
 }, {
 "frames": [ ExtResource( 12 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 11 ) ],
 "loop": false,
 "name": "hit_ground",
 "speed": 8.0
 }, {
+"frames": [ ExtResource( 28 ), ExtResource( 31 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 32 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 42 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 38 ), ExtResource( 33 ), ExtResource( 39 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 34 ) ],
+"loop": true,
+"name": "block",
+"speed": 7.0
+}, {
 "frames": [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 3 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ), ExtResource( 96 ), ExtResource( 102 ), ExtResource( 100 ), ExtResource( 103 ), ExtResource( 101 ) ],
-"loop": true,
-"name": "build",
-"speed": 8.0
 }, {
 "frames": [ ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 79 ), ExtResource( 73 ), ExtResource( 77 ), ExtResource( 78 ), ExtResource( 82 ), ExtResource( 72 ), ExtResource( 74 ) ],
 "loop": true,
 "name": "dig",
 "speed": 14.0
 }, {
-"frames": [ ExtResource( 28 ), ExtResource( 31 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 32 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 42 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 38 ), ExtResource( 33 ), ExtResource( 39 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 34 ) ],
+"frames": [ ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ), ExtResource( 96 ), ExtResource( 102 ), ExtResource( 100 ), ExtResource( 103 ), ExtResource( 101 ) ],
 "loop": true,
-"name": "block",
-"speed": 7.0
+"name": "build",
+"speed": 8.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 2.87113
-height = 2.66795
+radius = 3.09365
+height = 3.00203
 
 [sub_resource type="DynamicFont" id=4]
 size = 9
@@ -212,7 +212,7 @@ frames = SubResource( 1 )
 [node name="Animations" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "walk"
-frame = 5
+frame = 4
 playing = true
 __meta__ = {
 "_editor_description_": ""
