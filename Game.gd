@@ -131,6 +131,9 @@ func _update_collision_shape():
 func _on_Streamling_die(streamling_name):
 	streamlings.erase(streamling_name)
 
+func _on_Streamling_hit_ground():
+	$GameUI.flash(255, 0, 0)
+
 func umbrella(cmd_info : CommandInfo):
 	var user = cmd_info.sender_data.user
 	if user in streamlings:
@@ -179,6 +182,7 @@ func create_lemming(cmd_info : CommandInfo):
 		streamling.game = self
 
 		streamling.connect("die", self, "_on_Streamling_die")
+		streamling.connect("hit_ground", self, "_on_Streamling_hit_ground")
 
 func _on_Ground_body_entered(streamling):
 	$Camera2D/AnimationPlayer.play("shake")

@@ -2,6 +2,7 @@ class_name Streamling
 extends KinematicBody2D
 
 signal die
+signal hit_ground
 
 const COLLISION_LAYER_NORMAL = 0b00000000000000000010
 const COLLISION_LAYER_COLLIDE = 0b00000000000000000100
@@ -53,6 +54,9 @@ func deactivate_collision():
 	collision_layer = COLLISION_LAYER_NORMAL
 
 func play(animation):
+	if animation == "hit_ground":
+		emit_signal("hit_ground")
+
 	$Animations.play(animation)
 
 func play_out():

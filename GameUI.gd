@@ -33,6 +33,14 @@ func show_winning_screen():
 
 	$WinOverlay/LevelDoneTimer.start()
 
+func flash(r, g, b, duration = .2, initial_alpha = 70):
+	$Flash.visible = true
+	$Flash/Tween.interpolate_property($Flash, "color", Color8(r, g, b, initial_alpha), Color8(r, g, b, 0), duration)
+	$Flash/Tween.start()
+
+func _on_Tween_tween_all_completed():
+	$Flash.visible = false
+
 func _ready():
 	update_streamlings_saved_label()
 

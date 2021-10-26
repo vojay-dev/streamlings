@@ -251,6 +251,15 @@ one_shot = true
 stream = ExtResource( 12 )
 volume_db = -10.0
 
+[node name="Flash" type="ColorRect" parent="."]
+visible = false
+margin_left = -2.0
+margin_top = -3.0
+margin_right = 437.0
+margin_bottom = 247.0
+
+[node name="Tween" type="Tween" parent="Flash"]
+
 [connection signal="timeout" from="UserListUpdateTimer" to="." method="_on_UserListUpdateTimer_timeout"]
 [connection signal="pressed" from="EnableFullscreen" to="." method="_on_EnableFullscreen_pressed"]
 [connection signal="pressed" from="DisableFullscreen" to="." method="_on_DisableFullscreen_pressed"]
