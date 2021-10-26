@@ -23,7 +23,7 @@ func physics_process(_delta):
 		position_history.remove(0)
 	
 	if streamling.is_on_floor():
-		if _get_movement() <= 0.01:
+		if _get_movement() <= 0.01 and not streamling.saved:
 			_turn_around()
 
 		streamling.velocity.x = walk_speed * streamling.direction

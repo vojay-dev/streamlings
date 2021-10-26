@@ -20,12 +20,17 @@ func update_streamlings_saved_label():
 		$StreamlingSavedLabel.text = "Streamlinge gerettet: %d von %d" % [Global.streamlings_saved, Global.active_level.lemming_threshold]
 
 func show_winning_screen():
+	$ScrollContainer.visible = false
+	$UserListHeader.visible = false
+	$StreamlingSavedLabel.visible = false
+	$Resources.visible = false
+
 	$WinOverlay.visible = true
 	$WinOverlay/Tween.interpolate_property($WinOverlay, "modulate", Color8(255, 255, 255, 0), Color8(255, 255, 255, 255), 2)
 	$WinOverlay/Tween.start()
-	
+
 	$WinOverlay/WinningSound.play()
-	
+
 	$WinOverlay/LevelDoneTimer.start()
 
 func _ready():
@@ -38,7 +43,7 @@ func _physics_process(_delta):
 	update_streamlings_saved_label()
 	$EnableFullscreen.visible = !OS.window_fullscreen
 	$DisableFullscreen.visible = OS.window_fullscreen and not OS.has_feature("web")
-	
+
 	if Global.active_level:
 		$Resources/StoneLabel.text = str(Global.active_level.stones)
 		$Resources/UmbrellaLabel.text = str(Global.active_level.umbrellas)
