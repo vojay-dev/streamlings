@@ -57,6 +57,7 @@ func _on_BackToMenu_pressed():
 
 	if Global.active_level:
 		Global.active_level = null
+		Global.streamlings_saved = 0
 
 func _on_LevelDoneTimer_timeout():
 	emit_signal("level_done")

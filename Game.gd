@@ -230,3 +230,4 @@ func _on_GameUI_reset_level():
 func _on_GameUI_level_done():
 	var _error = get_tree().change_scene("res://Menu.tscn")
 	Global.active_level = null
+	Global.streamlings_saved = 0

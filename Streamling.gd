@@ -87,7 +87,7 @@ func emit_dig_particles():
 func down_collision():
 	return $RayCastDown.is_colliding()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	$Labels/Rows/StateLabel.visible = game and game.show_state
 
 	if not alive or saved:
