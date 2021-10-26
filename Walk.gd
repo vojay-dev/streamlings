@@ -1,9 +1,9 @@
 class_name Walk
 extends State
 
-const position_history_size = 5
+const position_history_size = 10
 
-var walk_speed = 10
+var walk_speed = 8
 var position_history = []
 
 func get_name():
@@ -23,7 +23,7 @@ func physics_process(_delta):
 		position_history.remove(0)
 	
 	if streamling.is_on_floor():
-		if _get_movement() <= 0.01 and not streamling.saved:
+		if _get_movement() <= 0.05 and not streamling.saved:
 			_turn_around()
 
 		streamling.velocity.x = walk_speed * streamling.direction
