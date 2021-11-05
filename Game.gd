@@ -183,6 +183,9 @@ func create_lemming(cmd_info : CommandInfo):
 
 		streamling.connect("die", self, "_on_Streamling_die")
 		streamling.connect("hit_ground", self, "_on_Streamling_hit_ground")
+		
+		if streamlings.size() == 1:
+			$GameUI.start_timer()
 
 func _on_Ground_body_entered(streamling):
 	$Camera2D/AnimationPlayer.play("shake")
@@ -196,6 +199,7 @@ func _on_Level_streamling_reached_goal(streamling: Streamling):
 	$GameUI.update_streamlings_saved_label()
 
 	if Global.active_level and Global.streamlings_saved == Global.active_level.lemming_threshold:
+		$GameUI.stop_timer()
 		$GameUI.show_winning_screen()
 
 func reset(_cmd_info : CommandInfo):
@@ -211,6 +215,8 @@ func _reset():
 	streamlings.clear()
 
 	Global.streamlings_saved = 0
+	Global.level_time = 0
+	$GameUI.stop_timer()
 
 func _load_level():
 	if Global.active_level:
@@ -233,5 +239,5 @@ func _on_GameUI_reset_level():
 
 func _on_GameUI_level_done():
 	var _error = get_tree().change_scene("res://Menu.tscn")
-	Global.active_level = null
-	Global.streamlings_saved = 0
+	Global.update_level_time(Global.active_level.level_name, Global.level_time)
+	Global.reset()

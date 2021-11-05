@@ -18,6 +18,8 @@ var umbrella_activated = false
 var alive = true
 var saved = false
 
+var infinite_inertia = true
+
 var game
 
 func _ready():
@@ -98,7 +100,7 @@ func _physics_process(_delta):
 		return
 
 	velocity.y += gravity
-	velocity = move_and_slide(velocity, Vector2.UP, false, 12, deg2rad(100))
+	velocity = move_and_slide(velocity, Vector2.UP, false, 12, deg2rad(100), infinite_inertia)
 
 func _on_OutAnimation_animation_finished():
 	if not alive:

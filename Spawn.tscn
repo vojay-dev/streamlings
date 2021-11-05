@@ -138,10 +138,10 @@ shader_param/cutoff = 0.036
 shader_param/falloff = 0.7
 shader_param/edge_fade = 0.578
 shader_param/speed = 3.0
-shader_param/ray1_density = 8.0
-shader_param/ray2_density = 30.0
-shader_param/ray2_intensity = 0.0
-shader_param/color = Color( 1, 1, 1, 0.8 )
+shader_param/ray1_density = 10.0
+shader_param/ray2_density = 50.0
+shader_param/ray2_intensity = 0.2
+shader_param/color = Color( 0.705882, 0.980392, 1, 0.894118 )
 shader_param/hdr = false
 shader_param/seed = 5.0
 

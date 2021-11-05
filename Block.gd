@@ -8,6 +8,7 @@ func enter():
 	streamling.activate_collision()
 	streamling.play("block")
 	streamling.velocity.x = 0
+	streamling.infinite_inertia = false
 
 func physics_process(_delta):
 	streamling.velocity.x = 0
@@ -17,3 +18,4 @@ func physics_process(_delta):
 
 func exit():
 	streamling.deactivate_collision()
+	streamling.infinite_inertia = true

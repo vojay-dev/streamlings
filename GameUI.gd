@@ -43,12 +43,15 @@ func _on_Tween_tween_all_completed():
 
 func _ready():
 	update_streamlings_saved_label()
+	$Commands/Channel.text = Global.channel
+	_on_OpenClose_pressed()
 
 func _on_UserListUpdateTimer_timeout():
 	update_user_list()
 
 func _physics_process(_delta):
 	update_streamlings_saved_label()
+	update_timer_label()
 	$EnableFullscreen.visible = !OS.window_fullscreen
 	$DisableFullscreen.visible = OS.window_fullscreen and not OS.has_feature("web")
 
@@ -69,8 +72,52 @@ func _on_BackToMenu_pressed():
 	var _error = get_tree().change_scene("res://Menu.tscn")
 
 	if Global.active_level:
-		Global.active_level = null
-		Global.streamlings_saved = 0
+		Global.reset()
 
 func _on_LevelDoneTimer_timeout():
 	emit_signal("level_done")
+
+func start_timer():
+	if $Timer/Timer.is_stopped():
+		$Timer/Timer.start()
+
+func stop_timer():
+	$Timer/Timer.stop()
+
+func get_time():
+	return int($Timer/TimerLabel.text)
+
+func update_timer_label():
+	$Timer/TimerLabel.text = str(Global.level_time)
+
+func _on_Timer_timeout():
+	Global.level_time += 1
+
+var commands_open = false
+
+func _on_OpenClose_pressed():
+	if not $Commands/Tween.is_active():
+		var current_position = $Commands.rect_position
+		$Commands/Tween.interpolate_property(
+			$Commands,
+			"rect_position",
+			current_position,
+			Vector2(current_position.x - 100 * (-1 if commands_open else 1), current_position.y),
+			1.2,
+			Tween.TRANS_BOUNCE,
+			Tween.EASE_OUT
+		)
+
+		$Commands/Tween.interpolate_property(
+			$Commands/OpenClose,
+			"rect_rotation",
+			0 if commands_open else 180,
+			180 if commands_open else 0,
+			.5,
+			Tween.TRANS_LINEAR,
+			Tween.EASE_OUT
+		)
+
+		$Commands/Tween.start()
+		commands_open = not commands_open
+

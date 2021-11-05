@@ -7,6 +7,7 @@
 
 [node name="Level" type="StaticBody2D"]
 script = ExtResource( 4 )
+level_name = "Level4"
 lemming_threshold = 3
 stones = 150
 umbrellas = 16

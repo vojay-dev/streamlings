@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/logo.png" type="Texture" id=1]
 [ext_resource path="res://Streamling.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/ui/icons/smaller.png" type="Texture" id=8]
 [ext_resource path="res://assets/misc/background.png" type="Texture" id=9]
 [ext_resource path="res://assets/ui/icons/musicOn.png" type="Texture" id=10]
+[ext_resource path="res://Highscores.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Shader" id=2]
 code = "/*
@@ -287,11 +288,11 @@ __meta__ = {
 }
 
 [node name="GridContainer" type="GridContainer" parent="CenterContainer2"]
-margin_left = 141.0
-margin_right = 291.0
+margin_left = 109.0
+margin_right = 323.0
 margin_bottom = 35.0
-custom_constants/hseparation = 20
-columns = 2
+custom_constants/hseparation = 7
+columns = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -305,10 +306,19 @@ __meta__ = {
 }
 
 [node name="StartButton" type="Button" parent="CenterContainer2/GridContainer"]
-margin_left = 104.0
-margin_right = 150.0
+margin_left = 91.0
+margin_right = 137.0
 margin_bottom = 35.0
 text = "START"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighscoreButton" type="Button" parent="CenterContainer2/GridContainer"]
+margin_left = 144.0
+margin_right = 214.0
+margin_bottom = 35.0
+text = "HIGHSCORE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -406,8 +416,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Highscores" parent="." instance=ExtResource( 11 )]
+visible = false
+
 [connection signal="item_selected" from="CenterContainer2/GridContainer/LevelSelect" to="." method="_on_LevelSelect_item_selected"]
 [connection signal="pressed" from="CenterContainer2/GridContainer/StartButton" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="CenterContainer2/GridContainer/HighscoreButton" to="." method="_on_HighscoreButton_pressed"]
 [connection signal="pressed" from="EnableFullscreen" to="." method="_on_EnableFullscreen_pressed"]
 [connection signal="pressed" from="DisableFullscreen" to="." method="_on_DisableFullscreen_pressed"]
 [connection signal="pressed" from="ToggleMusic" to="." method="_on_ToggleMusic_pressed"]

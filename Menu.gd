@@ -116,3 +116,6 @@ func _on_ToggleMusic_pressed():
 		_stop_music()
 	else:
 		_start_music()
+
+func _on_HighscoreButton_pressed():
+	$Highscores.visible = true

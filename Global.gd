@@ -1,11 +1,12 @@
 extends Node
 
-const STATE_FILE = "user://state.dat"
+const STATE_FILE = "user://streamlings.dat"
 
 var active_level
 var selected_level
 var levels
 
+var level_time : int = 0
 var streamlings_saved : int = 0
 
 var channel : String = "vojay"
@@ -82,3 +83,27 @@ func get_levels():
 	dir.list_dir_end()
 
 	return level_scenes
+
+func update_level_time(level_name, time):
+	if state["level_times"].has(level_name):
+		var current_best = state["level_times"][level_name]
+		if time < current_best:
+			state["level_times"][level_name] = time
+	else:
+		state["level_times"][level_name] = time
+
+	save_state()
+
+func get_level_time(level_name):
+	if state["level_times"].has(level_name):
+		return state["level_times"][level_name]
+
+	return null
+
+func get_level_times():
+	return state["level_times"]
+
+func reset():
+	active_level = null
+	streamlings_saved = 0
+	level_time = 0
