@@ -82,10 +82,10 @@ func _physics_process(_delta):
 
 		for i in range(rect_size/2):
 			for j in range(rect_size/2):
-				image.set_pixel(mouse_pos.x - i, mouse_pos.y - j, Color(0, 0, 0, 0))
-				image.set_pixel(mouse_pos.x + i, mouse_pos.y + j, Color(0, 0, 0, 0))
-				image.set_pixel(mouse_pos.x - i, mouse_pos.y + j, Color(0, 0, 0, 0))
-				image.set_pixel(mouse_pos.x + i, mouse_pos.y - j, Color(0, 0, 0, 0))
+				image.set_pixel(clamp(mouse_pos.x - i, 0, 431), clamp(mouse_pos.y - j, 0, 239), Color(0, 0, 0, 0))
+				image.set_pixel(clamp(mouse_pos.x + i, 0, 431), clamp(mouse_pos.y + j, 0, 239), Color(0, 0, 0, 0))
+				image.set_pixel(clamp(mouse_pos.x - i, 0, 431), clamp(mouse_pos.y + j, 0, 239), Color(0, 0, 0, 0))
+				image.set_pixel(clamp(mouse_pos.x + i, 0, 431), clamp(mouse_pos.y - j, 0, 239), Color(0, 0, 0, 0))
 
 		image.unlock()
 		update_collision_shape()
