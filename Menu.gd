@@ -93,13 +93,9 @@ func _on_DisableFullscreen_pressed():
 
 func _set_toggle_music_texture():
 	var playing = $AudioStreamPlayer.playing
-	var texture = load("res://assets/ui/icons/music%s.png" % ("On" if playing else "Off"))
 
-	$ToggleMusic.texture_normal = texture
-	$ToggleMusic.texture_pressed = texture
-	$ToggleMusic.texture_hover = texture
-	$ToggleMusic.texture_disabled = texture
-	$ToggleMusic.texture_focused = texture
+	$EnableMusic.visible = playing
+	$DisableMusic.visible = not playing
 
 func _start_music():
 	$AudioStreamPlayer.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/logo.png" type="Texture" id=1]
 [ext_resource path="res://Streamling.tscn" type="PackedScene" id=2]
@@ -6,11 +6,20 @@
 [ext_resource path="res://Menu.gd" type="Script" id=4]
 [ext_resource path="res://assets/ornate-theme/ornate-theme.tres" type="Theme" id=5]
 [ext_resource path="res://assets/ui/twitch.png" type="Texture" id=6]
-[ext_resource path="res://assets/ui/icons/larger.png" type="Texture" id=7]
-[ext_resource path="res://assets/ui/icons/smaller.png" type="Texture" id=8]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen on normal.png" type="Texture" id=7]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen off normal.png" type="Texture" id=8]
 [ext_resource path="res://assets/misc/background.png" type="Texture" id=9]
-[ext_resource path="res://assets/ui/icons/musicOn.png" type="Texture" id=10]
+[ext_resource path="res://assets/ui/ui buttons - music on pressed.png" type="Texture" id=10]
 [ext_resource path="res://Highscores.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen on pressed.png" type="Texture" id=12]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen on hover.png" type="Texture" id=13]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen off hover.png" type="Texture" id=14]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen off pressed.png" type="Texture" id=15]
+[ext_resource path="res://assets/ui/ui buttons - music on hover.png" type="Texture" id=16]
+[ext_resource path="res://assets/ui/ui buttons - music on normal.png" type="Texture" id=17]
+[ext_resource path="res://assets/ui/ui buttons - music off normal.png" type="Texture" id=18]
+[ext_resource path="res://assets/ui/ui buttons - music off hover.png" type="Texture" id=19]
+[ext_resource path="res://assets/ui/ui buttons - music off pressed.png" type="Texture" id=20]
 
 [sub_resource type="Shader" id=2]
 code = "/*
@@ -373,12 +382,11 @@ texture = ExtResource( 6 )
 [node name="EnableFullscreen" type="TextureButton" parent="."]
 margin_left = 409.641
 margin_top = 218.035
-margin_right = 459.641
-margin_bottom = 268.035
-rect_scale = Vector2( 0.4, 0.4 )
+margin_right = 424.641
+margin_bottom = 235.035
 texture_normal = ExtResource( 7 )
-texture_pressed = ExtResource( 7 )
-texture_hover = ExtResource( 7 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 13 )
 texture_disabled = ExtResource( 7 )
 texture_focused = ExtResource( 7 )
 __meta__ = {
@@ -389,29 +397,42 @@ __meta__ = {
 visible = false
 margin_left = 409.641
 margin_top = 218.035
-margin_right = 459.641
-margin_bottom = 268.035
-rect_scale = Vector2( 0.4, 0.4 )
+margin_right = 424.641
+margin_bottom = 235.035
 texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 8 )
-texture_hover = ExtResource( 8 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 14 )
 texture_disabled = ExtResource( 8 )
 texture_focused = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ToggleMusic" type="TextureButton" parent="."]
-margin_left = 389.798
+[node name="EnableMusic" type="TextureButton" parent="."]
+margin_left = 392.63
 margin_top = 218.035
-margin_right = 439.798
-margin_bottom = 268.035
-rect_scale = Vector2( 0.4, 0.4 )
-texture_normal = ExtResource( 10 )
+margin_right = 407.63
+margin_bottom = 235.035
+texture_normal = ExtResource( 17 )
 texture_pressed = ExtResource( 10 )
-texture_hover = ExtResource( 10 )
-texture_disabled = ExtResource( 10 )
-texture_focused = ExtResource( 10 )
+texture_hover = ExtResource( 16 )
+texture_disabled = ExtResource( 17 )
+texture_focused = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DisableMusic" type="TextureButton" parent="."]
+visible = false
+margin_left = 392.63
+margin_top = 218.035
+margin_right = 407.63
+margin_bottom = 235.035
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 20 )
+texture_hover = ExtResource( 19 )
+texture_disabled = ExtResource( 18 )
+texture_focused = ExtResource( 18 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -424,4 +445,5 @@ visible = false
 [connection signal="pressed" from="CenterContainer2/GridContainer/HighscoreButton" to="." method="_on_HighscoreButton_pressed"]
 [connection signal="pressed" from="EnableFullscreen" to="." method="_on_EnableFullscreen_pressed"]
 [connection signal="pressed" from="DisableFullscreen" to="." method="_on_DisableFullscreen_pressed"]
-[connection signal="pressed" from="ToggleMusic" to="." method="_on_ToggleMusic_pressed"]
+[connection signal="pressed" from="EnableMusic" to="." method="_on_ToggleMusic_pressed"]
+[connection signal="pressed" from="DisableMusic" to="." method="_on_ToggleMusic_pressed"]

@@ -1,18 +1,26 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/ornate-theme/ornate-theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen on normal.png" type="Texture" id=2]
 [ext_resource path="res://GameUI.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts/8bitlim.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://assets/ui/icons/smaller.png" type="Texture" id=5]
-[ext_resource path="res://assets/ui/icons/larger.png" type="Texture" id=6]
-[ext_resource path="res://assets/ui/icons/return.png" type="Texture" id=7]
-[ext_resource path="res://assets/ui/icons/home.png" type="Texture" id=8]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen off normal.png" type="Texture" id=5]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen on pressed.png" type="Texture" id=6]
+[ext_resource path="res://assets/ui/ui buttons - redo normal.png" type="Texture" id=7]
+[ext_resource path="res://assets/ui/ui buttons - home pressed.png" type="Texture" id=8]
 [ext_resource path="res://assets/ui/brick.png" type="Texture" id=9]
 [ext_resource path="res://assets/ui/umbrella2.png" type="Texture" id=10]
 [ext_resource path="res://assets/ornate-theme/pixelplay.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://assets/sounds/aplausos_2.mp3" type="AudioStream" id=12]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen on hover.png" type="Texture" id=13]
 [ext_resource path="res://assets/ui/twitch.png" type="Texture" id=14]
 [ext_resource path="res://assets/ui/icons/forward.png" type="Texture" id=15]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen off hover.png" type="Texture" id=16]
+[ext_resource path="res://assets/ui/ui buttons - fullscreen off pressed.png" type="Texture" id=17]
+[ext_resource path="res://assets/ui/ui buttons - redo pressed.png" type="Texture" id=18]
+[ext_resource path="res://assets/ui/ui buttons - redo hover.png" type="Texture" id=19]
+[ext_resource path="res://assets/ui/ui buttons - home normal.png" type="Texture" id=20]
+[ext_resource path="res://assets/ui/ui buttons - home hover.png" type="Texture" id=21]
 
 [sub_resource type="DynamicFontData" id=7]
 font_path = "res://assets/fonts/AvenuePixel-Regular.ttf"
@@ -50,11 +58,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_left = 368.0
-margin_top = 19.0
+[node name="UserListBackground" type="ColorRect" parent="."]
+margin_left = 339.0
+margin_top = 6.0
 margin_right = 424.0
-margin_bottom = 99.0
+margin_bottom = 27.0
+color = Color( 0, 0, 0, 0.431373 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UserListPanel" type="Panel" parent="."]
+margin_left = 335.0
+margin_top = 3.0
+margin_right = 427.0
+margin_bottom = 30.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 362.209
+margin_top = 33.3162
+margin_right = 418.209
+margin_bottom = 113.316
 theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -73,12 +101,12 @@ __meta__ = {
 }
 
 [node name="UserListHeader" type="Label" parent="."]
-margin_left = 351.0
-margin_top = 4.85858
-margin_right = 426.0
-margin_bottom = 18.8586
+margin_left = 336.013
+margin_top = 12.7158
+margin_right = 411.013
+margin_bottom = 26.7158
 custom_fonts/font = SubResource( 2 )
-text = "Aktive Streamlinge (00):"
+text = "Active Streamlings (00):"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -87,13 +115,33 @@ __meta__ = {
 [node name="UserListUpdateTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="StreamlingsSavedBackground" type="ColorRect" parent="."]
+margin_left = 169.0
+margin_top = 5.93701
+margin_right = 287.0
+margin_bottom = 26.937
+color = Color( 0, 0, 0, 0.431373 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StreamlingsSavedPanel" type="Panel" parent="."]
+margin_left = 166.0
+margin_top = 2.93701
+margin_right = 289.0
+margin_bottom = 29.937
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="StreamlingSavedLabel" type="Label" parent="."]
-margin_left = 82.0
-margin_top = -2.0
-margin_right = 321.0
-margin_bottom = 16.0
+margin_left = 107.013
+margin_top = 5.93701
+margin_right = 346.013
+margin_bottom = 23.937
 custom_fonts/font = SubResource( 2 )
-text = "Streamlinge gerettet: X von X"
+text = "Streamlings saved: X von X"
 align = 1
 valign = 1
 __meta__ = {
@@ -103,14 +151,13 @@ __meta__ = {
 [node name="EnableFullscreen" type="TextureButton" parent="."]
 margin_left = 409.641
 margin_top = 218.035
-margin_right = 459.641
-margin_bottom = 268.035
-rect_scale = Vector2( 0.4, 0.4 )
-texture_normal = ExtResource( 6 )
+margin_right = 424.641
+margin_bottom = 235.035
+texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 6 )
-texture_hover = ExtResource( 6 )
-texture_disabled = ExtResource( 6 )
-texture_focused = ExtResource( 6 )
+texture_hover = ExtResource( 13 )
+texture_disabled = ExtResource( 2 )
+texture_focused = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -119,12 +166,11 @@ __meta__ = {
 visible = false
 margin_left = 409.641
 margin_top = 218.035
-margin_right = 459.641
-margin_bottom = 268.035
-rect_scale = Vector2( 0.4, 0.4 )
+margin_right = 424.641
+margin_bottom = 235.035
 texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 5 )
-texture_hover = ExtResource( 5 )
+texture_pressed = ExtResource( 17 )
+texture_hover = ExtResource( 16 )
 texture_disabled = ExtResource( 5 )
 texture_focused = ExtResource( 5 )
 __meta__ = {
@@ -132,15 +178,14 @@ __meta__ = {
 }
 
 [node name="ResetLevel" type="TextureButton" parent="."]
-margin_left = 389.235
+margin_left = 393.235
 margin_top = 218.035
-margin_right = 439.235
-margin_bottom = 268.035
-rect_scale = Vector2( 0.4, 0.4 )
+margin_right = 408.235
+margin_bottom = 235.035
 hint_tooltip = "Reset Level"
 texture_normal = ExtResource( 7 )
-texture_pressed = ExtResource( 7 )
-texture_hover = ExtResource( 7 )
+texture_pressed = ExtResource( 18 )
+texture_hover = ExtResource( 19 )
 texture_disabled = ExtResource( 7 )
 texture_focused = ExtResource( 7 )
 __meta__ = {
@@ -148,17 +193,16 @@ __meta__ = {
 }
 
 [node name="BackToMenu" type="TextureButton" parent="."]
-margin_left = 368.0
+margin_left = 376.0
 margin_top = 218.035
-margin_right = 418.0
-margin_bottom = 268.035
-rect_scale = Vector2( 0.4, 0.4 )
+margin_right = 391.0
+margin_bottom = 235.035
 hint_tooltip = "Reset Level"
-texture_normal = ExtResource( 8 )
+texture_normal = ExtResource( 20 )
 texture_pressed = ExtResource( 8 )
-texture_hover = ExtResource( 8 )
-texture_disabled = ExtResource( 8 )
-texture_focused = ExtResource( 8 )
+texture_hover = ExtResource( 21 )
+texture_disabled = ExtResource( 20 )
+texture_focused = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -245,8 +289,8 @@ rect_clip_content = false
 theme = ExtResource( 1 )
 custom_fonts/normal_font = SubResource( 3 )
 bbcode_enabled = true
-bbcode_text = "[center][tornado radius=5 freq=2]GEWONNEN[/tornado][/center]"
-text = "GEWONNEN"
+bbcode_text = "[center][tornado radius=5 freq=2]GG[/tornado][/center]"
+text = "GG"
 __meta__ = {
 "_edit_use_anchors_": false
 }

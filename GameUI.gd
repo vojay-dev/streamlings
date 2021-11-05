@@ -6,7 +6,7 @@ signal level_done
 onready var game: Game = owner as Game
 
 func update_user_list():
-	$UserListHeader.text = "Aktive Streamlinge (%d):" % [game.streamlings.size()]
+	$UserListHeader.text = "Active Streamlings %d" % [game.streamlings.size()]
 
 	var text = ""
 
@@ -17,13 +17,23 @@ func update_user_list():
 
 func update_streamlings_saved_label():
 	if Global.active_level:
-		$StreamlingSavedLabel.text = "Streamlinge gerettet: %d von %d" % [Global.streamlings_saved, Global.active_level.lemming_threshold]
+		$StreamlingSavedLabel.text = "Streamlings saved %d of %d" % [Global.streamlings_saved, Global.active_level.lemming_threshold]
 
 func show_winning_screen():
+	$UserListBackground.visible = false
+	$UserListPanel.visible = false
 	$ScrollContainer.visible = false
 	$UserListHeader.visible = false
+	$StreamlingsSavedBackground.visible = false
+	$StreamlingsSavedPanel.visible = false
 	$StreamlingSavedLabel.visible = false
+	$EnableFullscreen.visible = false
+	$DisableFullscreen.visible = false
+	$ResetLevel.visible = false
+	$BackToMenu.visible = false
 	$Resources.visible = false
+	$Timer.visible = false
+	$Commands.visible = false
 
 	$WinOverlay.visible = true
 	$WinOverlay/Tween.interpolate_property($WinOverlay, "modulate", Color8(255, 255, 255, 0), Color8(255, 255, 255, 255), 2)
